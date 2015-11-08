@@ -85,9 +85,9 @@ OTHER_FILES += \
 
 ## import Qwt library
 
-win32:CONFIG(release, debug|release): LIBS += -L$$(SMARTKITS_HOME)/Qt/Qwt-6.1.1/lib/ -lqwt
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$(SMARTKITS_HOME)/Qt/Qwt-6.1.1/lib/ -lqwtd
-else:unix: LIBS += -L$$(SMARTKITS_HOME)/Qt/Qwt-6.1.1/lib/ -lqwt
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../lib/qwt/lib -lqwt
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../lib/qwt/lib -lqwtd
+else:unix: LIBS += -L$$PWD/../lib/qwt/lib -lqwt
 
-INCLUDEPATH += $$(SMARTKITS_HOME)/Qt/Qwt-6.1.1/include
-DEPENDPATH += $$(SMARTKITS_HOME)/Qt/Qwt-6.1.1/include
+INCLUDEPATH += $$PWD/../lib/qwt/include
+DEPENDPATH += $$PWD/../lib/qwt/include

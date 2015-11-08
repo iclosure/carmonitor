@@ -30,11 +30,12 @@
 
 # Expands
 bin
-lib
 temp
 Makefile
 *.user*
 .qmake.stash
+*-Debug
+*-Release
 
 # for Python
 *.pyc
