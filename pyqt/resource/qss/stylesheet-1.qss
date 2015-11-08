@@ -283,7 +283,7 @@ QDateTimeEdit {
 QComboBox:hover,
 QSpinBox:hover,
 QDateTimeEdit:hover,
-QDoubleSpinBox#MyDoubleSpinBox:hover {
+QDoubleSpinBox:hover {
     border: 1px solid rgba(200, 200, 250, 100);
 }
 
@@ -294,7 +294,7 @@ QComboBox::down-arrow {
 QDateTimeEdit::drop-down,
 QComboBox::drop-down,
 QSpinBox::drop-down,
-QDoubleSpinBox#MyDoubleSpinBox::drop-down {
+QDoubleSpinBox::drop-down {
     width: 14px;
     border-left: 1px solid rgba(128, 128, 128, 70);
     background:transparent;
@@ -303,7 +303,7 @@ QDoubleSpinBox#MyDoubleSpinBox::drop-down {
 QDateTimeEdit::drop-down:hover,
 QComboBox::drop-down:hover,
 QSpinBox::drop-down:hover,
-QDoubleSpinBox#MyDoubleSpinBox::drop-down:hover {
+QDoubleSpinBox::drop-down:hover {
     border-left: 1px solid lightgray;
     background:rgb(220, 240, 250);
 }
