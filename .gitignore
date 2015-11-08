@@ -36,6 +36,7 @@ Makefile
 .qmake.stash
 *-Debug
 *-Release
+*.db
 
 # for Python
 *.pyc

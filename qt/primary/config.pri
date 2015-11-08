@@ -53,7 +53,7 @@ APP_CONFIG           += sql
 # winextras module will be enable or not.
 ######################################################################
 
-win32:APP_CONFIG         += winextras
+APP_CONFIG         += winextras
 
 ######################################################################
 # webkit module will be enable or not.

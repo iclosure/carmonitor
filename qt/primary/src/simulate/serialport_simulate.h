@@ -149,7 +149,7 @@ protected:
     void unpack(int recvCount)
     {
         for (int i = 0; i < recvCount; i++) {
-            if (q_currIndex < offsetof(SerialPortSend, length)) {     // 1. frame-header
+            if (q_currIndex < offsetof(SerialPortRecv, length)) {     // 1. frame-header
 
                 q_frameSize = 0;	//
 
@@ -160,7 +160,7 @@ protected:
                 }
                 continue;
 
-            } else if (q_currIndex == offsetof(SerialPortSend, length)) {  // 2. frame-length
+            } else if (q_currIndex == offsetof(SerialPortRecv, length)) {  // 2. frame-length
 
                 switch (q_streamBuff[i]) {
                 case sizeof(SerialPortSend):
@@ -174,7 +174,7 @@ protected:
                 q_newBuff[q_currIndex++] = q_streamBuff[i];
                 continue;
 
-            } else if (q_currIndex == offsetof(SerialPortSend, index)) {  // 3 frame-id
+            } else if (q_currIndex == offsetof(SerialPortRecv, index)) {  // 3 frame-id
 
                 q_currFrameId = q_streamBuff[i];
                 q_newBuff[q_currIndex++] = q_streamBuff[i];

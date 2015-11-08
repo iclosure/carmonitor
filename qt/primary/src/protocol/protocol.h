@@ -13,7 +13,7 @@ const quint8 SerialTail[] = {0x9F};
 #pragma pack(push)
 #pragma pack(1)
 
-// sizeof(...) => 30 bytes
+// sizeof(...) => 37 bytes
 struct SerialPortSend {
     quint16 header;
     quint8  length;

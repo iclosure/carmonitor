@@ -334,7 +334,7 @@ HistoryWidget::HistoryWidget(QWidget *parent)
         curveHistory->setNormalScale();
     });
 */
-    // finally initialize
+    // finaly initialize
     checkBoxLBPMajor->setChecked(_v_curve_checked[0]);
     checkBoxLBPMinor->setChecked(_v_curve_checked[1]);
     checkBoxRBPMajor->setChecked(_v_curve_checked[2]);

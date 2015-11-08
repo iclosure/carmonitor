@@ -138,8 +138,7 @@ public:
 CurveWidget::CurveWidget(QWidget *parent) :
     QwtPlot(parent),
     q_enableDBClick(false),
-    q_showNormal(true),
-    q_zoomer(0)
+    q_showNormal(true)
 {
     setObjectName("CurveWidget");
     initialize(false);

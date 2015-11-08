@@ -39,14 +39,14 @@ SerialPortProxy::SerialPortProxy(QObject *parent)
         case QSerialPort::NotOpenError: emit serialPortError(error, tr("Not open")); break;
         default: Q_ASSERT(false); break;
         }
-        qErrnoWarning(error, "Serialport open failed!");
+        qErrnoWarning(error, "Serialport opend failed!");
     });
     connect(q_serialPort, &QSerialPort::readyRead, this, &SerialPortProxy::readData);
 
     ////////////////////////////////////////////////////////////////////
 
     QSettings settings;
-    // Group serialport properties
+    // Group serialport properities
     settings.beginGroup("Settings/" + objectName() + "/SerialPort");
     q_serialConfig.port = settings.value("port", "COM1").toString();
     QStringList infoList = settings.value("info", "115200-8-N-1").toString().split('-');
