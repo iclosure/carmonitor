@@ -14,14 +14,14 @@ def applicationDirPath():
         return path
     elif os.path.isfile(path):
         return os.path.dirname(path)
-    
+
 # 生成平台苦文件后缀
 def libSuffix():
     return ('.dylib' if sys.platform == 'darwin'
             else '.so' if sys.platform == 'linux'
             else '.dll' if sys.platform == 'win32'
             else '.x')
-    
+
 # TEST
 if __name__ == '__main__':
     print(libSuffix())

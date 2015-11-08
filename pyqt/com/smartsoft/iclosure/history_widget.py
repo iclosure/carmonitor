@@ -3,8 +3,8 @@ Created on Apr 25, 2015
 
 @author: iclosure
 '''
-from PyQt5.Qt import Qt, QDialog, QHBoxLayout, QPushButton, QFormLayout,\
-    QDateTimeEdit, QCheckBox, QVBoxLayout, QFileDialog, QApplication, QDateTime,\
+from PyQt5.Qt import Qt, QDialog, QHBoxLayout, QPushButton, QFormLayout, \
+    QDateTimeEdit, QCheckBox, QVBoxLayout, QFileDialog, QApplication, QDateTime, \
     QFileInfo, QMessageBox, QPen
 from com.smartsoft.iclosure.curve_widget import CurveWidget
 from com.smartsoft.iclosure.database.database_mgr import DatabaseMgr
@@ -24,48 +24,48 @@ class HistoryWidget(QDialog):
                        ]
     _v_curve_checked = [True, True, True, True,
                         True, True, True, True]
-    def __init__(self, parent=None):
+    def __init__(self, parent = None):
         super(HistoryWidget, self).__init__(parent)
         self.setObjectName('HistoryWidget')
         self.resize(800, 480)
         self.setWindowTitle('历史数据查看')
-        
+
         # layout - top
         horiLayoutTop = QHBoxLayout()
-        
+
         buttonQuit = QPushButton(self)
         buttonQuit.setObjectName('buttonQuit')
         horiLayoutTop.addSpacing(25)
         horiLayoutTop.addWidget(buttonQuit, 0, Qt.AlignLeft)
         horiLayoutTop.addStretch()
-        
+
         # button-export
         buttonExport = QPushButton(self)
         buttonExport.setObjectName('buttonExport')
         horiLayoutTop.addWidget(buttonExport)
         horiLayoutTop.addStretch()
-        
+
         # button-open
         buttonOpen = QPushButton(self)
         buttonOpen.setObjectName('buttonOpen')
         horiLayoutTop.addWidget(buttonOpen)
         horiLayoutTop.addStretch()
-        
+
         formLayoutTime = QFormLayout()
         formLayoutTime.setFormAlignment(Qt.AlignVCenter)
         horiLayoutTop.addLayout(formLayoutTime)
         horiLayoutTop.addStretch()
-        
+
         self.dateTimeEditStart = QDateTimeEdit(self)
         self.dateTimeEditStart.setObjectName('dateTimeEditStart')
         self.dateTimeEditStart.setDisplayFormat('yyyy-MM-dd HH:mm:ss')
         formLayoutTime.addRow('起始时间：', self.dateTimeEditStart)
-        
+
         self.dateTimeEditEnd = QDateTimeEdit(self)
         self.dateTimeEditEnd.setObjectName('dateTimeEditEnd')
         self.dateTimeEditEnd.setDisplayFormat('yyyy-MM-dd HH:mm:ss')
         formLayoutTime.addRow('结束时间：', self.dateTimeEditEnd)
-        
+
         # LBP
         formLayoutLBP = QFormLayout()
         formLayoutLBP.setFormAlignment(Qt.AlignVCenter)
@@ -78,7 +78,7 @@ class HistoryWidget(QDialog):
         self.checkBoxLBPMinor.setProperty('curveColor', '#101010')
         formLayoutLBP.addRow('左刹车压力:', self.checkBoxLBPMajor)
         formLayoutLBP.addRow('', self.checkBoxLBPMinor)
-        
+
         # RBP
         formLayoutRBP = QFormLayout()
         formLayoutRBP.setFormAlignment(Qt.AlignVCenter)
@@ -91,7 +91,7 @@ class HistoryWidget(QDialog):
         self.checkBoxRBPMinor.setProperty('curveColor', '#101010')
         formLayoutRBP.addRow('右刹车压力:', self.checkBoxRBPMajor)
         formLayoutRBP.addRow('', self.checkBoxRBPMinor)
-        
+
         # LRP
         formLayoutLRP = QFormLayout()
         formLayoutLRP.setFormAlignment(Qt.AlignVCenter)
@@ -104,7 +104,7 @@ class HistoryWidget(QDialog):
         self.checkBoxLRPReal.setProperty('curveColor', '#101010')
         formLayoutLRP.addRow('左转速:', self.checkBoxLRPTheory)
         formLayoutLRP.addRow('', self.checkBoxLRPReal)
-        
+
         # RRP
         formLayoutRRP = QFormLayout()
         formLayoutRRP.setFormAlignment(Qt.AlignVCenter)
@@ -117,24 +117,24 @@ class HistoryWidget(QDialog):
         self.checkBoxRRPReal.setProperty('curveColor', '#101010')
         formLayoutRRP.addRow('右转速:', self.checkBoxRRPTheory)
         formLayoutRRP.addRow('', self.checkBoxRRPReal)
-        
+
         # button-update
         buttonUpdate = QPushButton(self)
         buttonUpdate.setObjectName('buttonUpdate')
         horiLayoutTop.addWidget(buttonUpdate)
         horiLayoutTop.addStretch()
-        
+
         # middle-curves
         self.curveHistory = CurveWidget('历史数据回放', True, self)
         self.curveHistory.setMaximumWidth(10e5)
         self.curveHistory.setScaleLabelFormat('yyyy/MM/dd\n  HH:mm:ss')
         self.curveHistory.clear()
-        
+
         #
         vertLayoutMain = QVBoxLayout(self)
         vertLayoutMain.addLayout(horiLayoutTop)
         vertLayoutMain.addWidget(self.curveHistory)
-        
+
         buttonQuit.clicked.connect(self.accept)
         buttonOpen.clicked.connect(self.buttonOpenClicked)
         buttonExport.clicked.connect(self.buttonExportClicked)
@@ -149,7 +149,7 @@ class HistoryWidget(QDialog):
         self.checkBoxRRPTheory.toggled.connect(self.checkBoxRRPTheoryToggled)
         self.checkBoxRRPReal.toggled.connect(self.checkBoxRRPRealToggled)
         buttonUpdate.clicked.connect(self.buttonUpdateClicked)
-        
+
         # finalLy initialize
         self.checkBoxLBPMajor.setChecked(self._v_curve_checked[0]);
         self.checkBoxLBPMinor.setChecked(self._v_curve_checked[1]);
@@ -159,7 +159,7 @@ class HistoryWidget(QDialog):
         self.checkBoxLRPReal.setChecked(self._v_curve_checked[5]);
         self.checkBoxRRPTheory.setChecked(self._v_curve_checked[6]);
         self.checkBoxRRPReal.setChecked(self._v_curve_checked[7]);
-        
+
     def buttonOpenClicked(self):
         fileDialog = QFileDialog(self,
                                  '打开历史数据文件',
@@ -169,7 +169,7 @@ class HistoryWidget(QDialog):
             return
         # clear curve
         self.curveHistory.clear()
-        # 
+        #
         filePaths = fileDialog.selectedFiles()
         if filePaths.isEmpty():
             return
@@ -186,65 +186,65 @@ class HistoryWidget(QDialog):
         self.dateTimeEditEnd.setDateTimeRange(startTime, endTime)
         self.dateTimeEditEnd.setDateTime(endTime)
         self.dateTimeEditStart.setDateTime(startTime)
-        
+
         # title of curve
         self.curveHistory.setTitle('历史数据回放' + '（' + QFileInfo(filePath).fileName() + '）')
-        
+
     def buttonExportClicked(self):
-        (filePaths, filter) = QFileDialog.getOpenFileNames(parent=self, 
-                                                caption='转换数据库文件为文本格式',
-                                                directory=QApplication.applicationDirPath() + '/../data',
-                                                filter='Database file (*.db * mdb)')
+        (filePaths, filter) = QFileDialog.getOpenFileNames(parent = self,
+                                                caption = '转换数据库文件为文本格式',
+                                                directory = QApplication.applicationDirPath() + '/../data',
+                                                filter = 'Database file (*.db * mdb)')
         if not filePaths:
             return
-        # 
+        #
         if DatabaseMgr().convertToText(filePaths):
             QMessageBox.information(self, '格式转换', '转换成功！')
         else:
             QMessageBox.warning(self, '格式转换', '转换失败！')
-    
+
     def dateTimeStartChanged(self, dateTime):
         dateTimeEnd = self.dateTimeEditEnd.dateTime()
         if dateTime > dateTimeEnd:
             self.dateTimeEditStart.setDateTime(dateTimeEnd)
-    
+
     def dateTimeEndChanged(self, dateTime):
         dateTimeStart = self.dateTimeEditStart.dateTime()
         if dateTime < dateTimeStart:
             self.dateTimeEditEnd.setDateTime(dateTimeStart)
-    
+
     def checkBoxLBPMajorToggled(self, checked):
         self._v_curve_checked[0] = checked
-    
+
     def checkBoxLBPMinorToggled(self, checked):
         self._v_curve_checked[1] = checked
-    
+
     def checkBoxRBPMajorToggled(self, checked):
         self._v_curve_checked[2] = checked
-    
+
     def checkBoxRBPMinorToggled(self, checked):
         self._v_curve_checked[3] = checked
-    
+
     def checkBoxLRPTheoryToggled(self, checked):
         self._v_curve_checked[4] = checked
-    
+
     def checkBoxLRPRealToggled(self, checked):
         self._v_curve_checked[5] = checked
-    
+
     def checkBoxRRPTheoryToggled(self, checked):
         self._v_curve_checked[6] = checked
-    
+
     def checkBoxRRPRealToggled(self, checked):
         self._v_curve_checked[7] = checked
-    
+
     def buttonUpdateClicked(self):
         # clear curve
         self.curveHistory.clear()
-        
+
         points = []
         startTime = self.dateTimeEditStart.dateTime().toMSecsSinceEpoch()
         endTime = self.dateTimeEditEnd.dateTime().toMSecsSinceEpoch()
-        
+
         # LBP-Major
         if self.checkBoxLBPMajor.isChecked():
             # read
@@ -269,7 +269,7 @@ class HistoryWidget(QDialog):
             points.clear()
             if DatabaseMgr().read('rABrakeP', points, startTime, endTime):
                 self.curveHistory.addCurve('右刹压力－副', QPen(self.randomColor(3)), points)
-           
+
         # LRP-Theory
         if self.checkBoxLRPTheory.isChecked():
             # read
@@ -294,8 +294,7 @@ class HistoryWidget(QDialog):
             points.clear()
             if DatabaseMgr().read('rWheelSpd', points, startTime, endTime):
                 self.curveHistory.addCurve('右转速－实际', QPen(self.randomColor(7)), points)
-        
+
     @staticmethod
     def randomColor(index):
         return HistoryWidget._v_curve_colors[index]
-    

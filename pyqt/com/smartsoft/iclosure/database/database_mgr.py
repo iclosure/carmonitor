@@ -5,7 +5,7 @@ Created on Apr 25, 2015
 '''
 from com.smartsoft.utils.singleton import singleton
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from PyQt5.Qt import QApplication, QDir, QPointF, QFileInfo, QFile, QTextStream,\
+from PyQt5.Qt import QApplication, QDir, QPointF, QFileInfo, QFile, QTextStream, \
     QDateTime, QProgressDialog
 from com.smartsoft.utils.utils import applicationDirPath
 
@@ -14,7 +14,7 @@ class DatabaseMgr:
     '''
     class DatabaseMgr
     '''
-    
+
     def __init__(self):
         self._name = ''
         self._isOpen = False
@@ -25,11 +25,11 @@ class DatabaseMgr:
         self._db = QSqlDatabase.addDatabase('QSQLITE')
         if not self._db.isValid():
             assert(False)
-            
+
         # set account
         self._db.setUserName('611')
         self._db.setPassword('611')
-    
+
     def create(self, name):
         if not name.strip():
             return False
@@ -44,7 +44,7 @@ class DatabaseMgr:
         if not self._db.open():
             assert(False)
             return False
-        #create table
+        # create table
         return QSqlQuery(self._db).exec('create table tbl_recv_data('
                                         'msTime integer(20) primary key'
                                         ',lMBrakeP integer(5)'
@@ -56,8 +56,8 @@ class DatabaseMgr:
                                         ',lTheorySpd integer(6)'
                                         ',rTheorySpd integer(6)'
                                         ')')
-    
-    def open(self, name=''):
+
+    def open(self, name = ''):
         if not self._db.isValid():
             return False
         # has open?
@@ -77,23 +77,23 @@ class DatabaseMgr:
             assert(False)
             return False
         return True
-    
+
     def close(self):
         if not self._db.isValid():
             return
         self._db.close()
-    
+
     def save(self):
         self._isOpen = self._db.isOpen()
         self._name = self._db.databaseName()
         self._db.close()
-    
+
     def restore(self):
         self.close()
         self._db.setDatabaseName(self._name)
         if self._isOpen:
             self._db.open()
-    
+
     def startTime(self):
         if not (self._db.isValid() and self._db.isOpen()):
             return 0
@@ -103,7 +103,7 @@ class DatabaseMgr:
         if not query.next():
             return 0
         return query.value(0)
-    
+
     def endTime(self):
         if not (self._db.isValid() and self._db.isOpen()):
             return 0
@@ -113,8 +113,8 @@ class DatabaseMgr:
         if not query.next():
             return 0
         return query.value(0)
-    
-    def read(self, section, points, startTime=0, endTime=0):
+
+    def read(self, section, points, startTime = 0, endTime = 0):
         if not (self._db.isValid() and self._db.isOpen()):
             return False
         query = QSqlQuery(self._db)
@@ -130,8 +130,8 @@ class DatabaseMgr:
         while query.next():
             points.append(QPointF(query.value('msTime'), query.value(section)))
         return True
-    
-    def write(self, data, lTheorySpd, rTheorySpd, timeT, async=False):
+
+    def write(self, data, lTheorySpd, rTheorySpd, timeT, async = False):
         if not (self._db.isValid() and self._db.isOpen()):
             return False
         return QSqlQuery(self._db).exec('insert into tbl_recv_data values'
@@ -146,7 +146,7 @@ class DatabaseMgr:
                                           lTheorySpd,
                                           rTheorySpd
                                           ))
-    
+
     def convertToText(self, filePaths):
         if not filePaths:
             return True
@@ -209,9 +209,8 @@ class DatabaseMgr:
                     << query.value(8) << newLine
             self.close()
         return True
-        
+
 if __name__ == '__main__':
     one = DatabaseMgr()
     two = DatabaseMgr()
     print(id(one), id(two))
-    

@@ -18,10 +18,10 @@ class SerialPortProxy(QObject):
     stateChanged = QtCore.pyqtSignal(str)
     serialPortError = QtCore.pyqtSignal(QSerialPort.SerialPortError, str)
     displayRespond = QtCore.pyqtSignal(SerialRecv, QDateTime)
-    def __init__(self, parent=None):
+    def __init__(self, parent = None):
         super(SerialPortProxy, self).__init__(parent)
         self.setObjectName('SerialPortProxy')
-        
+
         #
         self._currIndex = 0
         self._currFrameId = 0
@@ -30,17 +30,17 @@ class SerialPortProxy(QObject):
         self._newBuff = [0] * 4096
         self._pkgBuff = [0] * 100
         self._serialRecv = SerialRecv()
-        
+
         self._serialConfig = SerialPortConfig()
         self._serialPort = QSerialPort(self)
-        
+
         #
         self._serialPort.error.connect(self.onSerialPortError)
         self._serialPort.readyRead.connect(self.readData)
-        
+
         #
-        self._serialSimulate = None#SerialSimulate(self)
-        
+        self._serialSimulate = None  # SerialSimulate(self)
+
         # read configuration
         settings = QSettings(self)
         # group - serialport properties
@@ -67,24 +67,24 @@ class SerialPortProxy(QObject):
                                        else QSerialPort.TwoStop if stopBits == 20
                                        else QSerialPort.OneStop)
         settings.endGroup()
-        
+
     def config(self):
         return  self._serialConfig
-    
+
     def setConfig(self, info):
         self._serialConfig.port = info.port
         self._serialConfig.baudRate = info.baudRate
         self._serialConfig.dataBits = info.dataBits
         self._serialConfig.parity = info.parity
         self._serialConfig.stopBits = info.stopBits
-        
+
         #
         settings = QSettings(self)
         settings.beginGroup('Settings/' + self.objectName() + '/SerialPort')
         settings.setValue('port', self._serialConfig.port)
         settings.setValue('info', self.__str__())
         settings.endGroup()
-    
+
     @QtCore.pyqtSlot(QSerialPort.SerialPortError, str)
     def onSerialPortError(self, error):
         print('SerialPort open failed!, %d' % error)
@@ -104,12 +104,12 @@ class SerialPortProxy(QObject):
                                   else 'Timeout' if error == QSerialPort.TimeoutError
                                   else 'Not open' if error == QSerialPort.NotOpenError
                                   else '%d' % error)
-    
+
     @QtCore.pyqtSlot()
     def start(self):
         if self._serialPort.isOpen():
             self._serialPort.close()
-        
+
         # config serialport properties
         self._serialPort.setPortName(self._serialConfig.port)
         if self._serialPort.open(QIODevice.ReadWrite):
@@ -118,13 +118,13 @@ class SerialPortProxy(QObject):
             self._serialPort.setParity(self._serialConfig.parity)
             self._serialPort.setStopBits(self._serialConfig.stopBits)
             self.stateChanged.emit('Open')
-    
+
     @QtCore.pyqtSlot()
     def stop(self):
         if self._serialPort.isOpen():
             self._serialPort.close()
             self.stateChanged.emit('Close')
-    
+
     @QtCore.pyqtSlot()
     def save(self):
         self.setProperty('portState', self._serialPort.isOpen())
@@ -132,31 +132,31 @@ class SerialPortProxy(QObject):
         # save state of simulator
         if self._serialSimulate:
             self._serialSimulate.save()
-    
+
     @QtCore.pyqtSlot()
     def restore(self):
         self.start() if bool(self.property('portState')) else self.stop()
-        
-        #restore state of simulator
+
+        # restore state of simulator
         if self._serialSimulate:
             self._serialSimulate.restore()
-    
+
     @QtCore.pyqtSlot(SerialSend)
     def writeData(self, data):
         if not self._serialPort.isOpen():
             # warning...
             return 0
         return int(self._serialPort.write(data.pack()))
-    
+
     @QtCore.pyqtSlot()
     def readData(self):
         self._streamBuff = self._serialPort.read(4096)
         self.unpack()
         return self._streamBuff.__len__()
-    
+
     def unpack(self):
         for (i, value) in enumerate(self._streamBuff):
-            if self._currIndex < self._serialRecv._offset_length:     # 1.frame-header
+            if self._currIndex < self._serialRecv._offset_length:  # 1.frame-header
                 self._frameSize = 0
                 if value == self._serialRecv._headers[self._currIndex]:
                     self._newBuff[self._currIndex] = value
@@ -174,22 +174,22 @@ class SerialPortProxy(QObject):
                 self._newBuff[i] = value
                 self._currIndex += 1
                 continue
-            elif self._currIndex == self._serialRecv._offset_index:   # 3.frame-index
+            elif self._currIndex == self._serialRecv._offset_index:  # 3.frame-index
                 self._currFrameId = value
                 self._newBuff[i] = value
                 self._currIndex += 1
                 continue
-            elif self._currIndex < self._frameSize:                   # 4.frame-data
+            elif self._currIndex < self._frameSize:  # 4.frame-data
                 self._newBuff[i] = value
                 self._currIndex += 1
-            if self._currIndex == self._frameSize:                    # receive a full frame successfully
+            if self._currIndex == self._frameSize:  # receive a full frame successfully
                 # 5.frame-sum
                 s = 0
                 for index in range(0, self._serialRecv._offset_sum):
                     s = (s + self._newBuff[index]) & 0xff
                 if self._newBuff[ self._serialRecv._offset_sum] != s:
                     self._currIndex = 0
-                    #continue  # invalid frame
+                    # continue  # invalid frame
                 # 6.frame-tail
                 if self._newBuff[self._serialRecv._offset_tail] != int(self._serialRecv.tail):
                     self._currIndex = 0  # invalid frame
@@ -200,29 +200,29 @@ class SerialPortProxy(QObject):
                 self.dispatch()
                 # 9.reset
                 self._currIndex = 0
-            
+
     def dispatch(self):
         # save as...
         self._serialRecv.unpack(bytes(self._pkgBuff))
-        
+
         # convert
-        
+
         self._serialRecv.lMBrakeP = self.swapUint16(self._serialRecv.lMBrakeP)
         self._serialRecv.lABrakeP = self.swapUint16(self._serialRecv.lABrakeP)
         self._serialRecv.rMBrakeP = self.swapUint16(self._serialRecv.rMBrakeP)
         self._serialRecv.rABrakeP = self.swapUint16(self._serialRecv.rABrakeP)
-        
+
         self._serialRecv.lMRotateP = self.swapUint16(self._serialRecv.lMRotateP)
         self._serialRecv.lARotateP = self.swapUint16(self._serialRecv.lARotateP)
         self._serialRecv.rMRotateP = self.swapUint16(self._serialRecv.rMRotateP)
         self._serialRecv.rARotateP = self.swapUint16(self._serialRecv.rARotateP)
-        
+
         self._serialRecv.lWheelSpd = self.swapUint32(self._serialRecv.lWheelSpd)
         self._serialRecv.rWheelSpd = self.swapUint32(self._serialRecv.rWheelSpd)
-        
+
         # emit
         self.displayRespond.emit(self._serialRecv, QDateTime.currentDateTime())
-        
+
     _crc16_table = bytes(256)
     @staticmethod
     def calcRCR16(data):
@@ -232,33 +232,32 @@ class SerialPortProxy(QObject):
 
     @staticmethod
     def serialPortSendSum(data):
-        return 0 #TODO
+        return 0  # TODO
         s = 0
         for i in range(0, data._offset_sum):
             s = (s + data[i]) & 0xff
         return s
-    
+
     @staticmethod
     def serialPortRecvSum(data):
-        return 0 #TODO
+        return 0  # TODO
         s = 0
         for i in range(0, data._offset_sum):
             s = (s + data[i]) & 0xff
         return s
-    
+
     @staticmethod
     def swapUint16(value):
         return value
-    
+
     @staticmethod
     def swapUint32(value):
         return value
-    
+
     @staticmethod
     def convertFromASCII(value):
         return value
-    
+
     @staticmethod
     def convertToASCII(value):
         return value
-    

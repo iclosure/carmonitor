@@ -7,12 +7,12 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtSerialPort import QSerialPort
 from PyQt5.Qt import QObject, QDateTime, QIODevice
-from com.smartsoft.iclosure.protocol.protocol import SerialSend, SerialRecv,\
+from com.smartsoft.iclosure.protocol.protocol import SerialSend, SerialRecv, \
     SerialPortConfig
 from com.smartsoft.iclosure.protocol.serialport_proxy import SerialPortProxy
 import ctypes
 import random
-#import random
+# import random
 
 class SerialSimulate(QObject):
     '''
@@ -20,7 +20,7 @@ class SerialSimulate(QObject):
     '''
     stateChanged = QtCore.pyqtSignal(str)
     serialPortError = QtCore.pyqtSignal(QSerialPort.SerialPortError, str)
-    def __init__(self, parent=None):
+    def __init__(self, parent = None):
         super(SerialSimulate, self).__init__(parent)
         self.setObjectName('SerialSimulate')
         #
@@ -32,10 +32,10 @@ class SerialSimulate(QObject):
         self._pkgBuff = [0] * 100
         self._serialSend = SerialSend()
         self._serialRecv = SerialRecv()
-        
+
         self._serialConfig = SerialPortConfig()
         self._serialPort = QSerialPort(self)
-        
+
         #
         self._serialPort.error.connect(self.onSerialPortError)
         self._serialPort.readyRead.connect(self.readData)
@@ -48,7 +48,7 @@ class SerialSimulate(QObject):
             self._serialPort.setParity(QSerialPort.OddParity)
             self._serialPort.setStopBits(QSerialPort.OneStop)
             self.stateChanged.emit('Open')
-        
+
         #
         self._serialRecv.lMBrakeP = SerialPortProxy.swapUint16(0)
         self._serialRecv.rMBrakeP = SerialPortProxy.swapUint16(0)
@@ -83,12 +83,12 @@ class SerialSimulate(QObject):
                                   else 'Timeout' if error == QSerialPort.TimeoutError
                                   else 'Not open' if error == QSerialPort.NotOpenError
                                   else '%d' % error)
-    
+
     @QtCore.pyqtSlot()
     def start(self):
         if self._serialPort.isOpen():
             self._serialPort.close()
-        
+
         # config serialport properties
         self._serialPort.setPortName(self._serialConfig.port)
         if self._serialPort.open(QIODevice.ReadWrite):
@@ -97,22 +97,22 @@ class SerialSimulate(QObject):
             self._serialPort.setParity(self._serialConfig.parity)
             self._serialPort.setStopBits(self._serialConfig.stopBits)
             self.stateChanged.emit('Open')
-    
+
     @QtCore.pyqtSlot()
     def stop(self):
         if self._serialPort.isOpen():
             self._serialPort.close()
             self.stateChanged.emit('Close')
-    
+
     @QtCore.pyqtSlot()
     def save(self):
         self.setProperty('portState', self._serialPort.isOpen())
         self.stop()
-    
+
     @QtCore.pyqtSlot()
     def restore(self):
         self.start() if bool(self.property('portState')) else self.stop()
-    
+
     @QtCore.pyqtSlot(SerialRecv)
     def writeData(self, data):
         if not self._serialPort.isOpen():
@@ -120,13 +120,13 @@ class SerialSimulate(QObject):
             self.killTimer(self._timerId)
             return 0
         return int(self._serialPort.write(data.pack()))
-    
+
     @QtCore.pyqtSlot()
     def readData(self):
         self._streamBuff = self._serialPort.read(4096)
         self.unpack()
         return self._streamBuff.__len__()
-    
+
     def unpack(self):
         for (i, value) in enumerate(self._streamBuff):
             if self._currIndex < self._serialSend._offset_length:  # 1.frame-header
@@ -147,22 +147,22 @@ class SerialSimulate(QObject):
                 self._newBuff[i] = value
                 self._currIndex += 1
                 continue
-            elif self._currIndex == self._serialSend._offset_index:   # 3.frame-index
+            elif self._currIndex == self._serialSend._offset_index:  # 3.frame-index
                 self._currFrameId = value
                 self._newBuff[i] = value
                 self._currIndex += 1
                 continue
-            elif self._currIndex < self._frameSize:                   # 4.frame-data
+            elif self._currIndex < self._frameSize:  # 4.frame-data
                 self._newBuff[i] = value
                 self._currIndex += 1
-            if self._currIndex == self._frameSize:                    # receive a full frame successfully
+            if self._currIndex == self._frameSize:  # receive a full frame successfully
                 # 5.frame-sum
                 s = 0
                 for index in range(0, self._serialSend._offset_sum):
                     s = (s + self._newBuff[index]) & 0xff
                 if self._newBuff[self._serialSend._offset_sum] != s:
                     self._currIndex = 0
-                    #continue  # invalid frame
+                    # continue  # invalid frame
                 # 6.frame-tail
                 if self._newBuff[self._serialSend._offset_tail] != int(self._serialSend.tail):
                     self._currIndex = 0  # invalid frame
@@ -173,17 +173,17 @@ class SerialSimulate(QObject):
                 self.dispatch()
                 # 9.reset
                 self._currIndex = 0
-            
+
     def dispatch(self):
         # save as...
         self._serialSend.unpack(bytes(self._pkgBuff))
-        
+
         # send
         self._serialRecv.lWheelSpd = self.convertToASCII(int(self._serialSend.lWheelSpd / 42.94967296))
         self._serialRecv.rWheelSpd = self.convertToASCII(int(self._serialSend.rWheelSpd / 42.94967296))
         self._serialRecv.sum = SerialPortProxy.serialPortRecvSum(self._serialRecv)
         self.writeData(self._serialRecv)
-        
+
     def timerEvent(self, event):
         step = 1
         if event.timerId() == self._timerId:
@@ -202,7 +202,7 @@ class SerialSimulate(QObject):
                 self._serialRecv.rWheelSpd = self.stepInc(self._serialRecv.rWheelSpd, step, 3000)
             self._serialRecv.sum = SerialPortProxy.serialPortRecvSum(self._serialRecv)
             self.writeData(self._serialRecv)
-        
+
     @staticmethod
     def stepWheelSpd(value, step, maxValue):
         value = SerialPortProxy.convertFromASCII(value) + step
@@ -213,11 +213,10 @@ class SerialSimulate(QObject):
     @staticmethod
     def convertToASCII(value):
         return value
-    
+
     @staticmethod
     def stepInc(value, step, maxValue):
-        value = SerialPortProxy.swapUint16(value) + step# + random() % 50
+        value = SerialPortProxy.swapUint16(value) + step  # + random() % 50
         if value > maxValue:
             value = 0
         return SerialPortProxy.swapUint16(value)
-    

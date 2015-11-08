@@ -21,7 +21,7 @@ def stylize(obj):
             setDefaultStyleSheet(obj)
     elif sys.platform == 'win32':
         if QSysInfo.windowsVersion() == QSysInfo.WV_WINDOWS7:
-            #obj.setWindowFlags(Qt.CustomizeWindowHint)
+            # obj.setWindowFlags(Qt.CustomizeWindowHint)
             '''
             from PyQt5.Qt import QtWin, Qt
             if QtWin.isCompositionEnabled():
@@ -39,4 +39,3 @@ def stylize(obj):
             setDefaultStyleSheet(obj)
     else:
         setDefaultStyleSheet(obj)
-        

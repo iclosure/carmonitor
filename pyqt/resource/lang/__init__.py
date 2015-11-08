@@ -7,4 +7,3 @@ from com.smartsoft.utils import rmake
 
 if __name__ == '__main__':
     rmake.buildqrc()
-    

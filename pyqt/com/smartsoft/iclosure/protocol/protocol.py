@@ -21,8 +21,8 @@ class SerialPortConfig:
         self.dataBits = QSerialPort.Data8
         self.parity = QSerialPort.NoParity
         self.stopBits = QSerialPort.OneStop
-        
-    def __str__(self, prePort=True):
+
+    def __str__(self, prePort = True):
         text = ''
         if prePort:
             text = self.port + ': '
@@ -43,7 +43,7 @@ class SerialPortConfig:
                            else 2 if self.stopBits == QSerialPort.TwoStop
                            else 0)
         return text
-    
+
 
 class SerialSend(ctypes.Structure):
     '''
@@ -62,7 +62,7 @@ class SerialSend(ctypes.Structure):
                         ('rPowerSw', ctypes.c_uint8, 1)
                         ]
         _anonymous_ = ('bits',)
-        _fields_= [('value', ctypes.c_uint8),
+        _fields_ = [('value', ctypes.c_uint8),
                     ('bits', _Bits)
                     ]
     _pack_ = 1
@@ -87,20 +87,20 @@ class SerialSend(ctypes.Structure):
         self._offset_index = self._offset_length + 1
         self._offset_tail = self.length - 1
         self._offset_sum = self._offset_tail - 1
-        
+
     def pack(self):
         return struct.pack(self._format_,
                            self.header, self.length, self.index,
                            self.lWheelSpd, self.rWheelSpd,
                            self.ctrlWord.value,
                            self.sum, self.tail)
-    
+
     def unpack(self, buffer):
         (self.header, self.length, self.index,
           self.lWheelSpd, self.rWheelSpd,
           self.ctrlWord.value,
           self.sum, self.tail) = struct.unpack(self._format_, buffer)
-        
+
     def __str__(self):
         return (u'{0:04X} {1:02X} {2:02X} '
                 '{3:08X} {4:08X} '
@@ -113,7 +113,7 @@ class SerialSend(ctypes.Structure):
                         reduce((lambda x, y: x + y), ['%02X ' % v for v in tuple(self.reserved)]),
                         self.sum, self.tail)
                 )
-    
+
 class SerialRecv(ctypes.Structure):
     '''
     class SerialRecv
@@ -125,22 +125,22 @@ class SerialRecv(ctypes.Structure):
     _fields_ = [('header', ctypes.c_uint16),
                 ('length', ctypes.c_uint8),
                 ('index', ctypes.c_uint8),
-                
-                ('lMBrakeP', ctypes.c_uint16),    # left-major-brake-press
-                ('lABrakeP', ctypes.c_uint16),    # left-minor-brake-press
-                ('rMBrakeP', ctypes.c_uint16),    # right-major-brake-press
-                ('rABrakeP', ctypes.c_uint16),    # right-minor-brake-press
-                
-                ('lMRotateP', ctypes.c_uint16),   # left-major-rotate-rate
-                ('lARotateP', ctypes.c_uint16),   # left-minor-rotate-rate
-                ('rMRotateP', ctypes.c_uint16),   # right-major-rotate-rate
-                ('rARotateP', ctypes.c_uint16),   # right-minor-rotate-rate
-                
-                ('rWheelSpd', ctypes.c_uint32),   # right-wheel-speed
-                ('lWheelSpd', ctypes.c_uint32),   # left-wheel-speed
-                
-                ('reserved', ctypes.c_uint8 * 6), #
-                ('sum', ctypes.c_uint8),          # parity sum
+
+                ('lMBrakeP', ctypes.c_uint16),  # left-major-brake-press
+                ('lABrakeP', ctypes.c_uint16),  # left-minor-brake-press
+                ('rMBrakeP', ctypes.c_uint16),  # right-major-brake-press
+                ('rABrakeP', ctypes.c_uint16),  # right-minor-brake-press
+
+                ('lMRotateP', ctypes.c_uint16),  # left-major-rotate-rate
+                ('lARotateP', ctypes.c_uint16),  # left-minor-rotate-rate
+                ('rMRotateP', ctypes.c_uint16),  # right-major-rotate-rate
+                ('rARotateP', ctypes.c_uint16),  # right-minor-rotate-rate
+
+                ('rWheelSpd', ctypes.c_uint32),  # right-wheel-speed
+                ('lWheelSpd', ctypes.c_uint32),  # left-wheel-speed
+
+                ('reserved', ctypes.c_uint8 * 6),  #
+                ('sum', ctypes.c_uint8),  # parity sum
                 ('tail', ctypes.c_uint8),
                 ]
     _format_ = '<H2B8H2I6x2B'
@@ -154,7 +154,7 @@ class SerialRecv(ctypes.Structure):
         self._offset_index = self._offset_length + 1
         self._offset_tail = self.length - 1
         self._offset_sum = self._offset_tail - 1
-        
+
     def pack(self):
         return struct.pack(self._format_,
                            self.header, self.length, self.index,
@@ -162,14 +162,14 @@ class SerialRecv(ctypes.Structure):
                            self.lMRotateP, self.lARotateP, self.rMRotateP, self.rARotateP,
                            self.rWheelSpd, self.lWheelSpd,
                            self.sum, self.tail)
-    
+
     def unpack(self, buffer):
         (self.header, self.length, self.index,
          self.lMBrakeP, self.lABrakeP, self.rMBrakeP, self.rABrakeP,
          self.lMRotateP, self.lARotateP, self.rMRotateP, self.rARotateP,
          self.rWheelSpd, self.lWheelSpd,
          self.sum, self.tail) = struct.unpack(self._format_, buffer)
-        
+
     def __str__(self):
         return (u'{0:04X} {1:02X} {2:02X} '
                 '{3:04X} {4:04X} {5:04X} {6:04X} '
@@ -184,8 +184,8 @@ class SerialRecv(ctypes.Structure):
                         reduce((lambda x, y: x + y), ['%02X ' % v for v in tuple(self.reserved)]),
                         self.sum, self.tail)
                 )
-    
-#TEST
+
+# TEST
 if __name__ == '__main__':
     strSend = b'\xaaU\x1f\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x9f'
     strRecv = b'\xaaU$\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x9f'
@@ -201,4 +201,3 @@ if __name__ == '__main__':
     print(serialSend.pack())
     a = serialRecv.unpack(strRecv)
     print(serialRecv.pack())
-    
