@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  product: carmonitor
+  company: smartsoft
+  author: iclosure
+  date: 9/14/2014 19:55
+  link: http://iclosure.visualstudio.com
+  copyright (c) 2014 smartsoft inc. all rights reserved.
+  -->
+<carmonitor version="1.0.0">
+    <serialport>
+    </serialport>
+</carmonitor>

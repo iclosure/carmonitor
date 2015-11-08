@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<head>
+    <title>javascript canvas demo</title>
+    <meta charset='utf-8'>
+    <style type="text/css">
+        body {
+            margin: 10px;
+            padding: 0px;
+            font-size: 24px;
+            background-color: #202020;
+        }
+    </style>
+    <script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <!--<canvas id="container"></canvas>-->
+    <script type="text/javascript" src="../lib/hightcharts/highcharts.src.js"></script>
+    <script type="text/javascript" src="../lib/hightcharts/exporting.js"></script>
+    <!--<script type="text/javascript" src="../lib/zrender/shape/util/SmoothSpline.js"></script>-->
+    <script type="text/javascript">
+        /*(function test1() {
+            var container = document.getElementById("container")
+            container.width = window.innerWidth - 50
+            container.height = window.innerHeight - 50
+            var context = container.getContext('2d')
+            context.lineWidth = 2
+            context.strokeStyle = '#0c78a6'
+            context.fillStyle = 'blue'
+
+            //var points = [[10, 200],
+            //            [container.width / 4, 50],
+            //            [container.width / 3, 100],
+            //            [container.width / 2, 250],
+            //            [container.width - 10, 120]]
+
+            var data = [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+            var points = []
+            for (var i = 0; i < data.length; i++) {
+                points.push([i * 100, (container.height - data[i] * 10)])
+            }
+            context.beginPath()
+            context.moveTo(points[0][0] + 5, points[0][1])
+            context.arc(points[0][0], points[0][1], 5, 0, Math.PI * 2, true)
+            for (var i = 1; i < points.length; i++) {
+                context.moveTo(points[i][0] + 5, points[i][1])
+                context.arc(points[i][0], points[i][1], 5, 0, Math.PI * 2, true)
+            }
+            context.stroke()
+
+            // 
+            var spline = new SmoothSpline(context)
+            spline.drawSpline(points, false, [[10, 10], [container.width, container.height]])
+
+        })()*/
+        $(function () {
+            var container = document.getElementById("container");
+            container.width = window.innerWidth - 50;
+            container.height = window.innerHeight - 50;
+            $(container, 100, 100).highcharts({
+                colors: ['#0c78a6', '#5fd43b'],
+                symbols: ['#circle', '#circle'],
+                global: { useUTC: false },
+                borderColor: '#202020',
+                backgroundColor: '#202020',
+                loading: {
+                    style: {
+                        backgroundColor: '#202020',
+                    }
+                },
+                legend: {
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    layout: 'horizontal',
+                    itemStyle: {
+                        color: '#5fd43b',
+                        fontSize: '20px',
+                        fontWeight: 'bold'
+                    },
+                },
+                chart: {
+                    type: 'spline',
+                    spacing: [5, 5, 5, 5],
+                    borderColor: '#202020',
+                    backgroundColor: '#202020',
+                    borderRadius: 5
+                },
+                title: {
+                    text: 'Monthly Average Temperature',
+                    style: {
+                        color: '#5fd43b',
+                        fontSize: '24px'
+                    }
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    gridLineColor: 'rgba(100,100,100,0.5)',
+                    tickColor: 'rgba(200,200,200,0.8)',
+                    reversed: false,
+                    gridLineWidth: 1,
+                    labels: {
+                        //align: 'left',
+                        style: {
+                            color: '#5fd43b',
+                            fontSize: '24px'
+                        }
+                    }
+                },
+                yAxis: {
+                    gridLineColor: 'rgba(100,100,100,0.5)',
+                    tickColor: 'rgba(200,200,200,0.8)',
+                    title: {
+                        text: 'Temperature',
+                        style: {
+                            color: '#5fd43b',
+                            fontSize: '24px'
+                        }
+                    },
+                    labels: {
+                        formatter: function () {
+                            return this.value + '°';
+                        },
+                        style: {
+                            color: '#5fd43b',
+                            fontSize: '24px'
+                        }
+                    }
+                },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true,
+                    backgroundColor: 'rgba(100, 100, 100, 0.5)',
+                    borderRadius: 6,
+                    style: {
+                        color: '#f0f0f0',
+                        fontSize: '20px'
+                    }
+                },
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            symbol: 'circle',
+                            radius: 3,
+                            lineColor: '#666666',
+                            lineWidth: 2
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Tokyo',
+                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+                    itemSyle: {
+                        color: '#5fd43b',
+                        fontSize: '24px'
+                    }
+                },
+                {
+                    name: 'London',
+                    data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8],
+                    itemSyle: {
+                        color: '#5fd43b',
+                        fontSize: '24px'
+                    }
+                }]
+            });
+        })();
+    </script>
+</body>

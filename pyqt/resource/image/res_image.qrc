@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/carmonitor/image/default">
+        <file alias="app.ico">default/app.ico</file>
+    </qresource>
+    <qresource prefix="/carmonitor/image">
+        <file alias="close-normal.png">close-normal.png</file>
+        <file alias="close-normal-2.png">close-normal-2.png</file>
+        <file alias="slider_handle.png">slider_handle.png</file>
+        <file alias="slider_handle-1.png">slider_handle-1.png</file>
+        <file alias="slider_bar-1.png">slider_bar-1.png</file>
+        <file alias="button-close.png">button-close.png</file>
+        <file alias="button-close-pressed.png">button-close-pressed.png</file>
+        <file alias="touchpoint.png">touchpoint.png</file>
+        <file alias="settings.png">settings.png</file>
+        <file alias="button-quit.png">button-quit.png</file>
+        <file alias="arrow_down.png">arrow_down.png</file>
+        <file alias="button-switch.png">button-switch.png</file>
+        <file alias="button-close-2x.png">button-close-2x.png</file>
+        <file alias="button-close-pressed-2x.png">button-close-pressed-2x.png</file>
+        <file alias="history.png">history.png</file>
+        <file alias="exit_full_screen.png">exit_full_screen.png</file>
+        <file alias="quit.png">quit.png</file>
+        <file alias="off.png">off.png</file>
+        <file alias="on.png">on.png</file>
+        <file alias="button-port-state.png">button-port-state.png</file>
+        <file alias="open-file.png">open-file.png</file>
+        <file alias="update.png">update.png</file>
+        <file alias="checkbox-checked.png">checkbox-checked.png</file>
+        <file alias="checkbox-unchecked.png">checkbox-unchecked.png</file>
+        <file alias="export.png">export.png</file>
+        <file alias="undo.png">undo.png</file>
+    </qresource>
+</RCC>

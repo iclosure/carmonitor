@@ -1,3 +1,4 @@
+ @@ -0,0 +1,28 @@
 # Compiled Object files
 *.slo
 *.lo
@@ -26,3 +27,14 @@
 *.exe
 *.out
 *.app
+
+# Expands
+bin
+lib
+temp
+Makefile
+*.user*
+.qmake.stash
+
+# for Python
+*.pyc

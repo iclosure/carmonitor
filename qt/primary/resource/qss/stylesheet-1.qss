@@ -1,0 +1,582 @@
+
+/** QWidget **/
+
+QWidget {
+    color: #5fd43b;
+}
+
+/* QWidget#groupBoxMiddle */
+QWidget#areaMiddle {
+    border-radius: 2px;
+    background: rgba(32, 32, 32, 100);
+}
+
+/* MainWidget */
+MainWidget {
+    background: #151515;
+}
+
+/** SliderWidget, SettingsWidget **/
+/*
+SliderWidget, SettingsWidget {
+    border: 1px solid rgb(100, 100, 64);
+    border-radius: 6px;
+    background-color: rgb(32, 32, 32);
+}
+*/
+/** CurveWidget **/
+
+CurveWidget {
+    border-radius: 3px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(25, 25, 25, 220), stop: 1 rgba(25, 25, 25, 120));
+}
+
+QwtPlotCanvas {
+    border-radius: 3px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(32, 32, 32, 200), stop: 1 rgba(32, 32, 32, 100));
+}
+
+QwtTextLabel {
+    font: 16px "微软雅黑"
+}
+
+QwtScaleWidget {
+    font: 12px "微软雅黑"
+}
+
+QwtLegendLabel{
+    font: 10px "微软雅黑"
+}
+
+/** QLabel **/
+
+QLabel {
+    font: 17px "微软雅黑"
+}
+
+QwtPlotZoomer {
+    color: white;
+}
+
+/** QGroupBox **/
+
+QGroupBox {
+    border: 1px solid gray;
+    border-radius: 2px;
+    margin-top: 3ex;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top center;
+    padding: 0 3px;;
+}
+
+QGroupBox#groupBoxTop, QGroupBox#groupBoxStatus, QGroupBox#groupBoxCtrl {
+    border: 0;
+    background: transparent;
+}
+
+/** QPushButton **/
+
+JButtonDash {
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+        stop:0 rgba(64, 64, 64, 200), stop:0.7 rgba(12, 130, 166, 100), stop:1 rgba(12, 130, 166, 30));
+    font: 17px "微软雅黑"
+}
+
+JButtonDash:hover {
+    border: 4px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+        stop:0 rgba(64, 64, 64, 220), stop:0.7 rgba(12, 130, 166, 200), stop:1 rgba(12, 130, 166, 100));
+}
+
+JButtonDash:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+        stop:0 rgba(12, 120, 166, 254), stop:0.7 rgba(32, 150, 186, 100), stop:1 rgba(32, 150, 186, 30));
+}
+
+JButtonDash:disable {
+    width: 80px;
+    border: 4px;
+}
+
+/** QSlider **/
+
+QSlider {
+    height: 55px;
+}
+
+QSlider::groove:horizontal {
+    border-image: url(:/carmonitor/image/slider_bar-1.png) 1;
+    border-width: 2px;
+    border-radius: 2px;
+    height: 8px;
+ }
+
+QSlider::handle:horizontal {
+    image: url(:/carmonitor/image/slider_handle-1.png);
+    width: 55px;
+    margin: -32px -5px;
+}
+/*
+QSlider::add-page:horizontal {
+    background: lightsteelblue;
+    border-radius: 6px;
+}
+
+QSlider::sub-page:horizontal {
+    background: steelblue;
+    border-radius: 6px;
+}
+*/
+QSlider::groove:vertical {
+    background: red;
+    position: absolute;
+    left: 4px; right: 4px;
+}
+
+QSlider::handle:vertical {
+    height: 10px;
+    background: green;
+    margin: 0 -4px;
+}
+
+QSlider::add-page:vertical {
+    background: white;
+}
+
+QSlider::sub-page:vertical {
+    background: pink;
+}
+
+/** QLineEdit **/
+
+QLineEdit  {
+    background: rgba(64, 64, 64, 100);
+    border-radius: 2px;
+    border: 1px solid rgba(200, 200, 250, 30);
+    color: rgba(200, 200, 200, 254);
+}
+
+QLineEdit:read-only  {
+    background: rgba(64, 64, 64, 100);
+    border-radius: 2px;
+    border: 0;
+    color: rgba(200, 200, 200, 254);
+}
+
+QLineEdit:!read-only:hover {
+    border: 1px solid rgba(200, 200, 250, 100);
+}
+
+QLineEdit:!read-only:focus {
+    background: rgba(100, 100, 100, 20);
+    border: 1px solid rgba(200, 200, 250, 150);
+}
+
+/** QTextEdit **/
+/*
+QTextEdit {
+    border: 4px;
+    border-image: url(:/images/default/edit_normal) 4 4 4 4 stretch stretch;
+    background-color: rgba(43, 45, 31, 10);
+}
+
+QTextEdit:hover {
+    border: 4px;
+    border-radius: 4px;
+    border-image: url(:/images/default/edit_hover) 4 4 4 4 stretch stretch;
+    background-color: rgba(43, 45, 31, 10);
+    padding: 2px 2px;
+}
+*/
+/** QSizeGrip **/
+/*
+QSizeGrip {
+    image: url(:/images/default/sizegrip);
+    width: 16px;
+    height: 16px;
+}
+*/
+/** QTabWidget **/
+
+QTabWidget::pane {
+     border: 0px solid #32435E;
+     position: absolute;
+     left: -0.1em;
+}
+
+QTabWidget#MainTabWidget::tab-bar {
+     left: -3px;
+}
+QTabWidget#MainTabWidget QTabBar::tab {
+     height: 14ex;
+     width: 14ex;
+}
+
+/** QTabWidget **/
+
+QTabBar::tab {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #292F31, stop: 1 #0C131E);
+}
+
+QTabBar::tab:selected{
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #113845,  stop: 1.0 #15A8FF);
+}
+
+QTabBar::tab:hover {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #113845,  stop: 1.0 #0E6F80);
+}
+
+#QTabBar::tab:selected {
+     border-color: #32435E;
+     border-right-color: #32435E;
+}
+
+#QTabBar::tab:!selected {
+     margin-left: 2px;
+}
+
+#QTabBar:tab:first:selected {
+    margin-top: 0;
+}
+
+QTabBar:tab:last:selected {
+    margin-right: 0;
+}
+
+QTabBar:tab:only-one {
+     margin: 0;
+}
+
+/**  **/
+
+QComboBox,
+QSpinBox,
+QDoubleSpinBox,
+QDateTimeEdit {
+    background: rgba(39, 39, 39, 50);
+    border-radius: 2px;
+    border: 1px solid rgba(200, 200, 250, 30);
+    color: rgba(200, 200, 200, 254);
+}
+
+QComboBox:hover,
+QSpinBox:hover,
+QDateTimeEdit:hover,
+QDoubleSpinBox#MyDoubleSpinBox:hover {
+    border: 1px solid rgba(200, 200, 250, 100);
+}
+
+QComboBox::down-arrow {
+    image:url(:/carmonitor/image/arrow_down.png);
+}
+
+QDateTimeEdit::drop-down,
+QComboBox::drop-down,
+QSpinBox::drop-down,
+QDoubleSpinBox#MyDoubleSpinBox::drop-down {
+    width: 14px;
+    border-left: 1px solid rgba(128, 128, 128, 70);
+    background:transparent;
+}
+
+QDateTimeEdit::drop-down:hover,
+QComboBox::drop-down:hover,
+QSpinBox::drop-down:hover,
+QDoubleSpinBox#MyDoubleSpinBox::drop-down:hover {
+    border-left: 1px solid lightgray;
+    background:rgb(220, 240, 250);
+}
+
+/* ScrollBar */
+
+QScrollBar:vertical {
+    background: lightgrey;
+    width: 12px;
+}
+
+QScrollBar::handle:vertical {
+    background: rgba(80,80,80,70);
+    min-height: 12px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::add-line:vertical {
+    height: 0px;
+}
+
+QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+    border: 0px solid grey;
+    width: 2px;
+    height: 2px;
+    background: white;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QScrollBar:horizontal {
+    background: lightgrey;
+    height: 12px;
+}
+
+QScrollBar::handle:horizontal {
+background: rgba(80,80,80,70);
+    min-width: 12px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::add-line:horizontal {
+    width: 0px;
+}
+
+QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
+
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal {
+    border: 0px solid grey;
+    width: 2px;
+    height: 2px;
+    background: white;
+}
+
+QScrollBar::add-page:horzontal, QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+/** QCheckBox **/
+
+QCheckBox {
+    spacing: 5px;
+}
+
+QCheckBox::indicator {
+    width: 25px;
+    height: 25px;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url(:/carmonitor/image/checkbox-unchecked.png);
+}
+/*
+QCheckBox::indicator:unchecked:hover {
+    image: url(:/carmonitor/image/checkbox-unchecked-hover.png);
+}
+
+QCheckBox::indicator:unchecked:pressed {
+    image: url(:/carmonitor/image/checkbox-unchecked-pressed.png);
+}
+*/
+QCheckBox::indicator:checked {
+    image: url(:/carmonitor/image/checkbox-checked.png);
+}
+/*
+QCheckBox::indicator:checked:hover {
+    image: url(:/carmonitor/image/checkbox-checked-hover.png);
+}
+
+QCheckBox::indicator:checked:pressed {
+    image: url(:/carmonitor/image/checkbox-checked-pressed.png);
+}
+
+QCheckBox::indicator:indeterminate:hover {
+    image: url(:/carmonitor/image/checkbox-indeterminate-hover.png);
+}
+
+QCheckBox::indicator:indeterminate:pressed {
+    image: url(:/carmonitor/image/checkbox-indeterminate-pressed.png);
+}
+*/
+/**
+ * Custom ...
+ */
+
+/* MainWidget::buttonSettings */
+
+QPushButton#buttonSettings {
+    border-image: url(:/carmonitor/image/settings.png);
+    width: 60px;
+    height: 60px;
+}
+QPushButton#buttonSettings:pressed, QPushButton#buttonSettings:hover {
+    width: 60px;
+    height: 60px;
+}
+
+/* MainWidget::buttonHistory */
+
+QPushButton#buttonHistory {
+    border-image: url(:/carmonitor/image/history.png);
+    width: 60px;
+    height: 60px;
+}
+QPushButton#buttonHistory:pressed, QPushButton#buttonHistory:hover {
+    width: 60px;
+    height: 60px;
+}
+
+/* MainWidget::buttonQuit */
+
+QPushButton#buttonQuit {
+    border-image: url(:/carmonitor/image/button-quit.png);
+    width: 60px;
+    height: 60px;
+}
+
+QPushButton#buttonQuit:pressed, QPushButton#buttonQuit:hover {
+}
+
+/* SliderWidget::buttonClose */
+
+QPushButton#buttonClose {
+    border-image: url(:/carmonitor/image/button-close-2x.png);
+    width: 50px;
+    height: 50px;
+}
+
+QPushButton#buttonClose:pressed {
+    border-image: url(:/carmonitor/image/button-close-pressed-2x.png);
+}
+
+/* QPushButton#buttonOk */
+
+QPushButton#buttonOk {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(25, 25, 25, 220), stop: 1 rgba(25, 25, 25, 200));
+}
+
+QPushButton#buttonOk:hover {
+    border: 4px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(25, 25, 25, 220), stop: 1 rgba(25, 25, 25, 240));
+}
+
+QPushButton#buttonOk:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 rgba(25, 25, 25, 220), stop: 1 rgba(25, 25, 25, 250));
+}
+
+/* HistoryWidget */
+HistoryWidget {
+    background: #202020;
+}
+
+/* HistoryWidget::buttonQuit */
+
+HistoryWidget QPushButton#buttonQuit {
+    border-image: url(:/carmonitor/image/button-quit.png);
+    width: 60px;
+    height: 60px;
+}
+
+HistoryWidget QPushButton#buttonQuit:pressed,
+HistoryWidget QPushButton#buttonQuit:hover {
+    width: 60px;
+    height: 60px;
+}
+
+/* QProgreeBar */
+
+QProgressBar {
+    border: 1px solid #c0c0c0;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    text-align: center;
+    height: 20px;
+    color: darkblue;
+}
+
+QProgressBar::chunk {
+    border: 1px solid #a0a0a0;
+    background-color: rgba(80, 80, 80, 100);
+    width: 5px;
+    magin: 0.5px;
+}
+
+/* QScrollBar */
+
+QScrollBar::vertical {
+    background: rgba(204, 210, 220, 240);
+    width: 8px;
+    magin: 0;
+    border-radius: 4px;
+}
+
+QScrollBar::handle:vertical {
+    background: rgba(80, 80, 80, 100);
+    min-height: 8px;
+    magin: 0;
+    border-radius: 4px;
+}
+
+QScrollBar::add-line:vertical {
+    height: 0;
+}
+
+QScrollBar::sub-line:vertical {
+    height: 0;
+}
+
+QScrollBar::up-arrow:vertical,
+QScrollBar::down-arrow:vertical {
+    border: 0 solid gray;
+    width: 0;
+    height: 0;
+    background: none;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+/*HistoryWidget::buttonOpen*/
+
+HistoryWidget QPushButton#buttonOpen {
+    border-image: url(:/carmonitor/image/open-file.png);
+    width: 60px;
+    height: 60px;
+}
+
+/*HistoryWidget::buttonUpdate*/
+
+HistoryWidget QPushButton#buttonUpdate {
+    border-image: url(:/carmonitor/image/update.png);
+    width: 60px;
+    height: 60px;
+}
+
+/*HistoryWidget::buttonExport*/
+
+HistoryWidget QPushButton#buttonExport {
+    border-image: url(:/carmonitor/image/export.png);
+    width: 60px;
+    height: 60px;
+}
+
+/*HistoryWidget::buttonUndo*/
+
+HistoryWidget QPushButton#buttonUndo {
+    border-image: url(:/carmonitor/image/undo.png);
+    width: 60px;
+    height: 60px;
+}

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<head>
+    <title>Curve</title>
+    <meta charset='utf-8'>
+    <style type="text/css">
+        body {
+            margin: 10px;
+            padding: 0px;
+            font-size: 24px;
+            background-color: #202020;
+        }
+    </style>
+    <script type="text/javascript" src="../lib/chart/Chart.min.js"></script>
+</head>
+<body>
+    <canvas id="container"></canvas>
+    <script>
+        var randomScalingFactor = function () { return Math.round(Math.random() * 100) };
+        var lineChartData = {
+            labels: ["January", "Febarary", "March", "April", "May", "June", "July"],
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "#0c78a6",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                },
+               {
+                   label: "My Second dataset",
+                   fillColor: "rgba(151,187,205,0.2)",
+                   strokeColor: "#5fd43b",
+                   pointColor: "rgba(151,187,205,1)",
+                   pointStrokeColor: "#fff",
+                   pointHighlightFill: "#fff",
+                   pointHighlightStroke: "rgba(151,187,205,1)",
+                   data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+               }
+            ]
+        }
+        var option = {
+            responsive: true,
+            scaleFontSize: 24,
+            tooltipTitleFontSize: 20,
+            tooltipFontSize: 20,
+            showTooltips: true,
+            datasetFill: false,
+            scaleFontColor: "#5fd43b",
+            scaleLineColor: "rgba(200,200,200,0.8)",
+            scaleGridLineColor: "rgba(100,100,100,0.5)",
+            tooltipTitleFontColor: "#5fd43b",
+            pointDotRadius: 3,
+            animationSteps: 30,
+            bezierCurveTension: 0.3,
+        }
+        window.onload = function () {
+            var container = document.getElementById("container");
+            container.width = window.innerWidth - 50;
+            container.height = window.innerHeight - 50;
+            var context = container.getContext("2d");
+            window.myLine = new Chart(context).Line(lineChartData, option);
+        }
+    </script>
+</body>

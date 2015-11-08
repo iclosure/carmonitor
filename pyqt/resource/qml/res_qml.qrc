@@ -1,0 +1,38 @@
+<RCC>
+    <qresource prefix="/carmonitor/qml">
+        <file alias="main.qml">main.qml</file>
+        <file alias="ButtonQuit.qml">ButtonQuit.qml</file>
+        <file alias="CurvePane.qml">CurvePane.qml</file>
+        <file alias="JTextInput.qml">JTextInput.qml</file>
+        <file alias="JText.qml">JText.qml</file>
+        <file alias="JSlider.qml">JSlider.qml</file>
+    </qresource>
+    <qresource prefix="/carmonitor/qml/curve">
+        <file alias="Curve.qml">curve/Curve.qml</file>
+        <file alias="curve.html">curve/curve.html</file>
+        <file alias="curve.js">curve/curve.js</file>
+    </qresource>
+    <qresource prefix="/carmonitor/qml/dial">
+        <file alias="Dial.qml">dial/Dial.qml</file>
+    </qresource>
+    <qresource prefix="/carmonitor/qml/dashboard">
+        <file alias="DashBoard.qml">dashboard/DashBoard.qml</file>
+    </qresource>
+    <qresource prefix="/carmonitor/qml/lib/hightcharts">
+        <file alias="exporting.js">lib/hightcharts/exporting.js</file>
+        <file alias="highcharts.js">lib/hightcharts/highcharts.js</file>
+        <file alias="highcharts.src.js">lib/hightcharts/highcharts.src.js</file>
+    </qresource>
+    <qresource prefix="/carmonitor/qml/lib/flotr">
+        <file alias="flotr2.min.js">lib/flotr/flotr2.min.js</file>
+    </qresource>
+    <qresource prefix="/carmonitor/qml/lib/jquery">
+        <file alias="jquery.min.js">lib/jquery/jquery.min.js</file>
+    </qresource>
+    <qresource prefix="/carmonitor/qml/lib/chart">
+        <file alias="Chart.min.js">lib/chart/Chart.min.js</file>
+    </qresource>
+    <qresource prefix="/carmonitor/qml/lib/zrender">
+        <file alias="SmoothSpline.js">lib/zrender/shape/util/SmoothSpline.js</file>
+    </qresource>
+</RCC>
