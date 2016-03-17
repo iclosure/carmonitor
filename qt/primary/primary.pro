@@ -14,7 +14,7 @@ include( src/src.pri )
 # project config
 ################################################################
 
-QT += core gui
+QT += core gui svg
 
 TEMPLATE = app
 TARGET = $$qtLibraryTarget(CarMonitor)

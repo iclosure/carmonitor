@@ -1,4 +1,4 @@
-#include "precomp.h"
+﻿#include "precomp.h"
 #include "curve.h"
 #include <qwt_plot_curve.h>
 #include <qwt_symbol.h>
@@ -45,7 +45,7 @@ void Curve::setSamples(const QVector<QPointF> &samples)
     update();
 }
 
-void Curve::sheft(const QPointF &point)
+void Curve::shift(const QPointF &point)
 {
     q_points.append(point);
     if (q_points.count() > q_sheftCount) {
@@ -54,7 +54,7 @@ void Curve::sheft(const QPointF &point)
     update();
 }
 
-void Curve::sheft(qreal y)
+void Curve::shift(qreal y)
 {
     q_points.append(QPoint(q_points.count(), y));
     if (q_points.count() > q_sheftCount) {
@@ -66,9 +66,9 @@ void Curve::sheft(qreal y)
     update();
 }
 
-void Curve::sheft(qreal x, qreal y)
+void Curve::shift(qreal x, qreal y)
 {
-    sheft(QPointF(x, y));
+    shift(QPointF(x, y));
     update();
 }
 

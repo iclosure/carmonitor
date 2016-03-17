@@ -613,17 +613,17 @@ MainWidget::MainWidget(QWidget *parent)
         quint64 timeT = dateTime.toMSecsSinceEpoch();
 
         // curve - LBP
-        curveLBP->curve(0)->sheft(timeT, data.lMBrakeP);
-        curveLBP->curve(1)->sheft(timeT, data.lABrakeP);
+        curveLBP->curve(0)->shift(timeT, data.lMBrakeP);
+        curveLBP->curve(1)->shift(timeT, data.lABrakeP);
         // curve - LRR
-        curveLRP->curve(0)->sheft(timeT, data.lWheelSpd);
-        curveLRP->curve(1)->sheft(timeT, q_lTheorySpd);
+        curveLRP->curve(0)->shift(timeT, data.lWheelSpd);
+        curveLRP->curve(1)->shift(timeT, q_lTheorySpd);
         // curve - RBP
-        curveRBP->curve(0)->sheft(timeT, data.rMBrakeP);
-        curveRBP->curve(1)->sheft(timeT, data.rABrakeP);
+        curveRBP->curve(0)->shift(timeT, data.rMBrakeP);
+        curveRBP->curve(1)->shift(timeT, data.rABrakeP);
         // curve - RRR
-        curveRRP->curve(0)->sheft(timeT, data.rWheelSpd);
-        curveRRP->curve(1)->sheft(timeT, q_rTheorySpd);
+        curveRRP->curve(0)->shift(timeT, data.rWheelSpd);
+        curveRRP->curve(1)->shift(timeT, q_rTheorySpd);
 
         // save as database
         if (!DataBaseMgr::instance().write(data, q_lTheorySpd, q_rTheorySpd, timeT)) {

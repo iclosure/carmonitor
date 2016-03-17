@@ -1,4 +1,4 @@
-#ifndef CURVE_H
+﻿#ifndef CURVE_H
 #define CURVE_H
 
 #include <qwt_plot_curve.h>
@@ -14,9 +14,9 @@ public:
     void append(qreal y);
     void append(qreal x, qreal y);
     void setSamples(const QVector<QPointF> &samples);
-    void sheft(const QPointF &point);
-    void sheft(qreal y);
-    void sheft(qreal x, qreal y);
+    void shift(const QPointF &point);
+    void shift(qreal y);
+    void shift(qreal x, qreal y);
     int count() const { return q_points.count(); }
     QVector<QPointF> &samples() { return q_points; }
 
